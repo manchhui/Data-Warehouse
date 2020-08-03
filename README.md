@@ -4,7 +4,7 @@
 ## Introduction
 A music streaming startup, Sparkify, has grown their user base and song database and want to move their processes and data onto the cloud. Their data resides in S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
 
-As their data engineer, you are tasked with building an ETL pipeline that extracts their data from S3, stages them in Redshift, and transforms data into a set of dimensional tables for their analytics team to continue finding insights in what songs their users are listening to. You'll be able to test your database and ETL pipeline by running queries given to you by the analytics team from Sparkify and compare your results with their expected results.
+As their data engineer, you are tasked with building an ETL pipeline that extracts their data from S3, stages them in Redshift, and transforms the data into a set of dimensional and fact tables for their analytics team to continue finding insights in what songs their users are listening to. You'll be able to test your database and ETL pipeline by running queries given to you by the analytics team from Sparkify and compare your results with their expected results.
 
 
 ## 1. Database Design Description
@@ -13,9 +13,9 @@ There are two source datasets, one called "song" and another "log". And from the
 ### 1.1 Fact Table
 The fact table in this star scheme will be named "songplays" and is designed to record "log" data associated with song plays. This fact table will have the
 following columns: songplay_id (PK, SORTKEY), start_time (FK), user_id (FK), level, song_id (FK), artist_id (FK), session_id, location, user_agent. NOTE: PK denotes
-PRIMARY KEY, FK denotes FORIEGN KEY and SORTKEY to assist with optimsation of performance.
+PRIMARY KEY, FK denotes FORIEGN KEY and SORTKEY is to assist with optimsation of performance.
 
-Additionally the fact table and all dimension tables have been distributed to all the available nodes with setting "DISTSTYLE ALL", to all further optimation of query performance.
+Additionally the fact table and all dimension tables have been distributed to all the available nodes with setting "DISTSTYLE ALL", to allow further optimation of query performance.
 ### 1.2 Dimension Tables
 The following tables in this star scheme are all dimension tables.
 - users - This table will be used to record unique user details. This table will have the following columns:
@@ -28,10 +28,10 @@ The following tables in this star scheme are all dimension tables.
             start_time (PK, SORTKEY), hour, day, week, month, year, weekday
 
 ### 1.3 Staging Tables, Dataset Cleanup and ETL process
-The two source datasets, one called "song" and the other "log", resides on Amazon S3 servers and in the ETL process these two datasets are:
+The two source datasets, one called "song" and the other "log", resides on AWS S3 servers and in the ETL process these two datasets are:
 - Extracted into two staging tables and then subseqently cleaned of NULL values from the following colummns:
     userId, sessionId, ts, song_id,  artist_id.
-- Transformed, where the main data transformations are performed on the:
+- Transformed, where the main data transformations are performed to allow data to be loaded into the:
     Songplays Table:
         - Duplicates removed.
         - "ts" variable is converted into a timestamp with the DATEADD function.
