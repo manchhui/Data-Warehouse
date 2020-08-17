@@ -2,9 +2,11 @@
 
 
 ## Introduction
-A music streaming startup, Sparkify, has grown their user base and song database and want to move their processes and data onto the cloud. Their data resides in AWS S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
+A music streaming startup, Sparkify, has grown their user base and song database and want to move their processes and data onto the cloud (data warehouse). Their data resides in AWS S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
 
 As their data engineer, I was tasked with building an ETL pipeline that extracts their data from AWS S3, stages them in AWS Redshift, and transforms the data into a set of dimensional and fact tables for their analytics team to continue finding insights in what songs their users are listening to.
+
+> A data warehouse is a system that **retrieves** and **consolidates** data **periodically** from the source systems into a **dimensional** or **normalised** data store. It usually **keeps years of history** and is queried for **business intelliegence** or other **analytical activities**. It is typically **updated in batches**, not every time a transaction happens in the source system. [REF: RAINARDI] 
 
 
 ## 1. Database Design Description
